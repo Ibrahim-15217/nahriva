@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "473789704291",
+    "project_id": "nahriva",
+    "storage_bucket": "nahriva.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473789704291:android:86e5910831a582da5f3056",
+        "android_client_info": {
+          "package_name": "com.nahriva.nahriva"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOZTV8At56dxWfGGlbvq2gsRgKTz_2kMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
