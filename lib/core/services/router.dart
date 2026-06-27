@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:nahriva/features/splash/screens/splash_screen.dart';
 import 'package:nahriva/features/onboarding/screens/onboarding_screen.dart';
 import 'package:nahriva/features/onboarding/screens/welcome_screen.dart';
+import 'package:nahriva/features/auth/presentation/screens/login_screen.dart';
+import 'package:nahriva/features/auth/presentation/screens/register_screen.dart';
+import 'package:nahriva/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:nahriva/features/home/screens/home_shell.dart';
 import 'package:nahriva/features/home/screens/home_screen.dart';
 import 'package:nahriva/features/home/screens/map_screen.dart';
@@ -27,6 +30,21 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: Routes.welcome,
       builder: (context, state) => const WelcomeScreen(),
+    ),
+    GoRoute(
+      path: Routes.login,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: Routes.register,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const RegisterScreen(),
+    ),
+    GoRoute(
+      path: Routes.forgotPassword,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const ForgotPasswordScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {

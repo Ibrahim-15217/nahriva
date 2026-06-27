@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nahriva/core/constants/routes.dart';
 import 'package:nahriva/core/services/onboarding_service.dart';
 import 'package:nahriva/core/theme/app_colors.dart';
 import 'package:nahriva/core/theme/app_typography.dart';
+import 'package:nahriva/features/auth/presentation/providers/auth_provider.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
@@ -23,11 +25,18 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
 
+    final user = ref.read(authRepositoryProvider).currentUser;
+
+    if (user != null) {
+      context.go(Routes.home);
+      return;
+    }
+
     final onboardingComplete = await OnboardingService.isOnboardingComplete();
     if (!mounted) return;
 
     if (onboardingComplete) {
-      context.go(Routes.home);
+      context.go(Routes.login);
     } else {
       context.go(Routes.onboarding);
     }
