@@ -18,31 +18,35 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              color: AppColors.surfaceVariant,
-              borderRadius: BorderRadius.circular(60),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 60),
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                color: AppColors.surfaceVariant,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Icon(icon, size: 50, color: AppColors.primary),
             ),
-            child: Icon(icon, size: 60, color: AppColors.primary),
-          ),
-          const SizedBox(height: 40),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: AppTypography.headline2.copyWith(color: AppColors.textPrimary),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            description,
-            textAlign: TextAlign.center,
-            style: AppTypography.body.copyWith(color: AppColors.textSecondary),
-          ),
-        ],
+            const SizedBox(height: 32),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: AppTypography.headline2.copyWith(color: AppColors.textPrimary),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              description,
+              textAlign: TextAlign.center,
+              style: AppTypography.body.copyWith(color: AppColors.textSecondary),
+            ),
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
     );
   }
