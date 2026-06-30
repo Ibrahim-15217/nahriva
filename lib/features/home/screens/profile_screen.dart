@@ -5,6 +5,8 @@ import 'package:nahriva/features/auth/presentation/providers/auth_provider.dart'
 import 'package:nahriva/features/gamification/presentation/providers/gamification_providers.dart';
 import 'package:nahriva/features/gamification/presentation/widgets/badge_card.dart';
 import 'package:nahriva/features/home/screens/edit_profile_screen.dart';
+import 'package:nahriva/features/notifications/presentation/screens/notification_screen.dart';
+import 'package:nahriva/features/admin/presentation/screens/admin_dashboard_screen.dart';
 import 'package:nahriva/features/report/presentation/providers/report_providers.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -88,7 +90,7 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: 24),
               _buildSectionHeader(context, 'Settings', Icons.settings),
               const SizedBox(height: 8),
-              _buildSettingsSection(context, isDark),
+              _buildSettingsSection(context, isDark, userAsync.asData?.value),
               const SizedBox(height: 24),
               _buildLogoutButton(context, logout),
               const SizedBox(height: 32),
@@ -236,7 +238,8 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSettingsSection(BuildContext context, bool isDark) {
+  Widget _buildSettingsSection(BuildContext context, bool isDark, dynamic user) {
+    final isAdmin = user?.role == 'admin';
     return Container(
       decoration: BoxDecoration(
         color: isDark ? Colors.grey.shade800 : Colors.white,
@@ -251,7 +254,15 @@ class ProfileScreen extends ConsumerWidget {
             activeThumbColor: AppColors.primary,
           )),
           const Divider(height: 1, indent: 56),
-          _buildSettingTile(context, isDark, Icons.notifications_outlined, 'Notifications', onTap: () {}),
+          _buildSettingTile(context, isDark, Icons.notifications_outlined, 'Notifications', onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => const NotificationScreen(),
+          ))),
+          if (isAdmin) ...[
+            const Divider(height: 1, indent: 56),
+            _buildSettingTile(context, isDark, Icons.admin_panel_settings, 'Admin Panel', onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => const AdminDashboardScreen(),
+            ))),
+          ],
           const Divider(height: 1, indent: 56),
           _buildSettingTile(context, isDark, Icons.info_outline, 'About', onTap: () => _showAbout(context)),
         ],
