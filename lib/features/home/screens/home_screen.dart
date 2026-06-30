@@ -8,6 +8,7 @@ import 'package:nahriva/features/home/presentation/widgets/quick_actions.dart';
 import 'package:nahriva/features/home/presentation/widgets/recent_reports_feed.dart';
 import 'package:nahriva/features/home/presentation/widgets/welcome_card.dart';
 import 'package:nahriva/features/gamification/presentation/screens/gamification_hub_screen.dart';
+import 'package:nahriva/features/education/presentation/screens/education_hub_screen.dart';
 import 'package:nahriva/features/home/screens/home_shell.dart';
 import 'package:nahriva/features/report/presentation/screens/submit_report_screen.dart';
 
@@ -59,6 +60,7 @@ class HomeScreen extends ConsumerWidget {
               onScanEcoLens: () => _goToTab(context, 1),
               onViewMap: () => _goToTab(context, 2),
               onOpenQuest: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const GamificationHubScreen())),
+              onOpenLearn: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const EducationHubScreen())),
             ),
             const SizedBox(height: 16),
             userAsync.when(

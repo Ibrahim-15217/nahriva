@@ -14,6 +14,7 @@ import 'package:nahriva/features/report/presentation/screens/report_feed_screen.
 import 'package:nahriva/features/report/presentation/screens/submit_report_screen.dart';
 import 'package:nahriva/features/report/presentation/screens/report_detail_screen.dart';
 import 'package:nahriva/features/gamification/presentation/screens/gamification_hub_screen.dart';
+import 'package:nahriva/features/education/presentation/screens/education_hub_screen.dart';
 import 'package:nahriva/core/constants/routes.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -92,6 +93,11 @@ final GoRouter appRouter = GoRouter(
       path: Routes.quest,
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const GamificationHubScreen(),
+    ),
+    GoRoute(
+      path: Routes.learn,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const EducationHubScreen(),
     ),
     GoRoute(
       path: Routes.submitReport,

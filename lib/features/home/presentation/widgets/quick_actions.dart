@@ -7,6 +7,7 @@ class QuickActions extends StatelessWidget {
   final VoidCallback? onScanEcoLens;
   final VoidCallback? onViewMap;
   final VoidCallback? onOpenQuest;
+  final VoidCallback? onOpenLearn;
 
   const QuickActions({
     super.key,
@@ -14,6 +15,7 @@ class QuickActions extends StatelessWidget {
     this.onScanEcoLens,
     this.onViewMap,
     this.onOpenQuest,
+    this.onOpenLearn,
   });
 
   @override
@@ -58,6 +60,13 @@ class QuickActions extends StatelessWidget {
               label: 'GreenQuest',
               color: AppColors.success,
               onTap: onOpenQuest ?? () {},
+            )),
+            const SizedBox(width: 8),
+            Expanded(child: _ActionButton(
+              icon: Icons.menu_book_rounded,
+              label: 'Learn',
+              color: AppColors.warning,
+              onTap: onOpenLearn ?? () {},
             )),
           ],
         ),
