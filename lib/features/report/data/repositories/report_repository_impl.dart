@@ -115,5 +115,15 @@ class ReportRepositoryImpl implements ReportRepository {
     await _firestore.collection('users').doc(reporterUid).update({
       'points': user.points + points,
     });
+
+    await _firestore.collection('users').doc(reporterUid).collection('notifications').add({
+      'title': status == 'resolved' ? 'Report Resolved' : 'Report Verified',
+      'body': status == 'resolved'
+          ? 'Your report has been resolved! You earned 50 GreenPoints.'
+          : 'Your report has been verified! You earned 20 GreenPoints.',
+      'type': status == 'resolved' ? 'report_resolved' : 'report_verified',
+      'isRead': false,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
   }
 }

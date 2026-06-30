@@ -10,6 +10,9 @@ import 'package:nahriva/features/home/presentation/widgets/welcome_card.dart';
 import 'package:nahriva/features/gamification/presentation/screens/gamification_hub_screen.dart';
 import 'package:nahriva/features/education/presentation/screens/education_hub_screen.dart';
 import 'package:nahriva/features/home/screens/home_shell.dart';
+import 'package:nahriva/features/notifications/presentation/providers/notification_providers.dart';
+import 'package:nahriva/features/notifications/presentation/screens/notification_screen.dart';
+import 'package:nahriva/features/gamification/presentation/providers/gamification_providers.dart' hide userProfileProvider;
 import 'package:nahriva/features/report/presentation/screens/submit_report_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -22,13 +25,43 @@ class HomeScreen extends ConsumerWidget {
     final wasteTypesAsync = ref.watch(wasteTypesCountProvider);
     final recentReportsAsync = ref.watch(recentReportsProvider);
 
+    final unreadCountAsync = ref.watch(unreadCountProvider);
+    ref.watch(checkAndAwardBadgesProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Nahriva'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {},
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.notifications_outlined),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const NotificationScreen())),
+              ),
+              unreadCountAsync.when(
+                data: (count) => count > 0
+                    ? Positioned(
+                        right: 6, top: 6,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
+                          child: Text(
+                            '$count',
+                            style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                loading: () => const SizedBox.shrink(),
+                error: (_, _) => const SizedBox.shrink(),
+              ),
+            ],
           ),
         ],
       ),

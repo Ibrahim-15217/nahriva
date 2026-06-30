@@ -178,6 +178,42 @@ List<Challenge> _defaultChallenges(Ref ref) {
   ];
 }
 
+final checkAndAwardBadgesProvider = FutureProvider<void>((ref) async {
+  final user = ref.watch(currentUserProvider);
+  if (user == null) return;
+
+  final dataSource = ref.watch(gamificationDataSourceProvider);
+  final existingBadgeIds = await dataSource.getUserBadgeIds(user.uid);
+  final reportsCount = await _getUserReportsCount(user.uid);
+  final trustScore = await _getUserTrustScore(user.uid);
+
+  final newBadges = BadgeCatalog.checkNewBadges(
+    reportsCount: reportsCount,
+    points: user.points,
+    trustScore: trustScore,
+    existingBadgeIds: existingBadgeIds,
+  );
+
+  for (final badge in newBadges) {
+    await dataSource.awardBadge(user.uid, badge.id);
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('notifications')
+        .add({
+      'title': 'Badge Earned: ${badge.name}',
+      'body': badge.description,
+      'type': 'badge',
+      'isRead': false,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  if (newBadges.isNotEmpty) {
+    ref.invalidate(badgesProvider);
+  }
+});
+
 final userProfileProvider = FutureProvider<User?>((ref) async {
   final user = ref.watch(currentUserProvider);
   if (user == null) return null;
