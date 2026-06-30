@@ -21,7 +21,7 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: AppColors.background,
-      fontFamily: 'Poppins',
+      fontFamily: 'Roboto',
       appBarTheme: AppBarTheme(
         centerTitle: true,
         elevation: 0,
@@ -146,7 +146,7 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: AppColors.darkBackground,
-      fontFamily: 'Poppins',
+      fontFamily: 'Roboto',
       appBarTheme: AppBarTheme(
         centerTitle: true,
         elevation: 0,

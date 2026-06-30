@@ -9,6 +9,10 @@ class UserModel extends User {
     super.role,
     super.points,
     super.reportsCount,
+    super.currentStreak,
+    super.longestStreak,
+    super.lastActiveDate,
+    super.lastBonusClaimed,
     required super.createdAt,
   });
 
@@ -21,6 +25,10 @@ class UserModel extends User {
       role: data['role'] as String? ?? 'user',
       points: data['points'] as int? ?? 0,
       reportsCount: data['reportsCount'] as int? ?? 0,
+      currentStreak: data['currentStreak'] as int? ?? 0,
+      longestStreak: data['longestStreak'] as int? ?? 0,
+      lastActiveDate: (data['lastActiveDate'] as Timestamp?)?.toDate(),
+      lastBonusClaimed: (data['lastBonusClaimed'] as Timestamp?)?.toDate(),
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
@@ -33,6 +41,10 @@ class UserModel extends User {
       'role': role,
       'points': points,
       'reportsCount': reportsCount,
+      'currentStreak': currentStreak,
+      'longestStreak': longestStreak,
+      if (lastActiveDate != null) 'lastActiveDate': Timestamp.fromDate(lastActiveDate!),
+      if (lastBonusClaimed != null) 'lastBonusClaimed': Timestamp.fromDate(lastBonusClaimed!),
       'createdAt': Timestamp.fromDate(createdAt),
     };
   }

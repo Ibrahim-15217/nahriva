@@ -8,9 +8,12 @@ import 'package:nahriva/features/auth/presentation/screens/register_screen.dart'
 import 'package:nahriva/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:nahriva/features/home/screens/home_shell.dart';
 import 'package:nahriva/features/home/screens/home_screen.dart';
-import 'package:nahriva/features/home/screens/map_screen.dart';
-import 'package:nahriva/features/home/screens/ecolens_screen.dart';
+import 'package:nahriva/features/ecolens/presentation/screens/ecolens_screen.dart';
 import 'package:nahriva/features/home/screens/profile_screen.dart';
+import 'package:nahriva/features/report/presentation/screens/report_feed_screen.dart';
+import 'package:nahriva/features/report/presentation/screens/submit_report_screen.dart';
+import 'package:nahriva/features/report/presentation/screens/report_detail_screen.dart';
+import 'package:nahriva/features/gamification/presentation/screens/gamification_hub_screen.dart';
 import 'package:nahriva/core/constants/routes.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -71,7 +74,7 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: Routes.reportFeed,
-              builder: (context, state) => const MapScreen(),
+              builder: (context, state) => const ReportFeedScreen(),
             ),
           ],
         ),
@@ -84,6 +87,24 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: Routes.quest,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const GamificationHubScreen(),
+    ),
+    GoRoute(
+      path: Routes.submitReport,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const SubmitReportScreen(),
+    ),
+    GoRoute(
+      path: Routes.reportDetail,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        return ReportDetailScreen(reportId: id);
+      },
     ),
   ],
 );
